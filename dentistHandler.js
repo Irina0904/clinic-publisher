@@ -5,11 +5,14 @@ var fetch = require('node-fetch');
 //const dotenv = require("dotenv");
 const mongodb = require("mongodb");
 const mongoClient = mongodb.MongoClient;
+var mqttClient = require('./mqttHandler');
 //const CircuitBreaker = require("opossum");
 
 const uri = 'mongodb+srv://IriLev0904:Tuborg2002@cluster0.nkjyt.mongodb.net/WebProject?retryWrites=true&w=majority'
 
 const client = new mongoClient(uri);
+
+mqttClient.mqttTest();
 
 
 async function main() {
@@ -49,11 +52,9 @@ function fetchData(dentists) {
                 dentists.insertOne(allDentists[i], function(err, res) {
                     if (err) throw err;
                     console.log("1 document inserted");
-                    console.log(dentists)
                   });
                 }
                 console.log("Dentists added successfully")
-                console.log(dentists)
         })
     })
         .catch(err => {
