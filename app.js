@@ -1,7 +1,5 @@
-//Type 'node dentistHandler.js' in the console to run this file
-//var mongoose = require('mongoose');
+//Type 'npm start' in the console to run this file
 var fetch = require('node-fetch');
-//const mqtt = require("mqtt");
 //const dotenv = require("dotenv");
 const mongodb = require("mongodb");
 const mongoClient = mongodb.MongoClient;
@@ -13,7 +11,7 @@ const uri = 'mongodb+srv://IriLev0904:Tuborg2002@cluster0.nkjyt.mongodb.net/WebP
 
 const client = new mongoClient(uri);
 
-coordinateHandler.getCoordinates();
+coordinateHandler.sendCoordinates();
 
 mqttClient.mqttTest();
 
