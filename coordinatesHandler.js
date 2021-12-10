@@ -20,15 +20,27 @@ async function sendCoordinates() {
                 let coordinates = [];
                 for (let i = 0; i < clinics.length; i++) {
                     let coordinate = {
-                        longitude: "",
-                        latitude: "",
+                            type: "Feature",
+                            geometry: {
+                              type: "Point",
+                              coordinates: [],
+                            },
+                            properties: {
+                              title: "",
+                              description: "",
+                            },
                     };
-                    coordinate.longitude = clinics[i].coordinate.longitude;
-                    coordinate.latitude = clinics[i].coordinate.latitude;
+                    coordinate.geometry.coordinates = [clinics[i].coordinate.longitude, clinics[i].coordinate.latitude];
+                    coordinate.properties.title = clinics[i].name;
+                    coordinate.properties.description = clinics[i].address;
                     coordinates.push(coordinate);
                 }
                 console.log(coordinates);
-                client.publish('clinic-publisher/coordinates', JSON.stringify(coordinates), { qos: 0, retain: true }, (error) => {
+                const message = {
+                    type: "FeatureCollection",
+                    features: coordinates
+                }
+                client.publish('clinic-publisher/coordinates', JSON.stringify(message), { qos: 0, retain: false }, (error) => {
                     if (error) {
                       console.error(error)
                     }
