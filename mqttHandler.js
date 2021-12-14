@@ -5,6 +5,7 @@ const port = '1883'
 const clientId = `mqtt_${Math.random().toString(16).slice(3)}`
 
 const connectUrl = `mqtt://${host}:${port}`
+
 const client = mqtt.connect(connectUrl, {
   clientId,
   clean: true,
@@ -14,14 +15,15 @@ const client = mqtt.connect(connectUrl, {
   reconnectPeriod: 1000,
 })
 
+
 function mqttTest() {
-    const topic = '/nodejs/mqtt'
+    const topic = 'nodejs/mqtt'
 client.on('connect', () => {
   console.log('Connected')
   client.subscribe([topic], () => {
     console.log(`Subscribe to topic '${topic}'`)
   })
-  client.publish(topic, 'message from Clinic Publisher', { qos: 0, retain: true }, (error) => {
+  client.publish(topic, 'From Irina: Hello programmer', { qos: 0, retain: true }, (error) => {
     if (error) {
       console.error(error)
     }
@@ -34,5 +36,9 @@ client.on('message', (topic, payload) => {
 }
 
 module.exports = {
-    mqttTest
+
+  getMQTTClient: function () {
+    return client;
+  },
+  mqttTest
 }

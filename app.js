@@ -1,16 +1,17 @@
-//Type 'node dentistHandler.js' in the console to run this file
-//var mongoose = require('mongoose');
+//Type 'npm start' in the console to run this file
 var fetch = require('node-fetch');
-//const mqtt = require("mqtt");
 //const dotenv = require("dotenv");
 const mongodb = require("mongodb");
 const mongoClient = mongodb.MongoClient;
 var mqttClient = require('./mqttHandler');
+var coordinateHandler = require('./coordinatesHandler');
 //const CircuitBreaker = require("opossum");
 
 const uri = 'mongodb+srv://IriLev0904:Tuborg2002@cluster0.nkjyt.mongodb.net/WebProject?retryWrites=true&w=majority'
 
 const client = new mongoClient(uri);
+
+coordinateHandler.sendCoordinates();
 
 mqttClient.mqttTest();
 
