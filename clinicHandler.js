@@ -19,19 +19,19 @@ async function sendClinicsInfo() {
                 let clinicsInfo = [];
                 for (let i = 0; i < clinics.length; i++) {
                     let clinic = {
-                        _id: "",
+                        id: "",
                         name: "",
                         address: "",
                         city: "",
                     };
-                    clinic._id = clinics[i]._id;
+                    clinic.id = clinics[i].id;
                     clinic.name = clinics[i].name;
                     clinic.address = clinics[i].address;
                     clinic.city = clinics[i].city;
                     clinicsInfo.push(clinic);
                 }
                 console.log(clinicsInfo)
-                client.publish('clinic-publisher/clinicsInfo', JSON.stringify(clinicsInfo), { qos: 0, retain: false }, (error) => {
+                client.publish('clinic-publisher/clinicsInfo', JSON.stringify(clinicsInfo), { qos: 0, retain: true }, (error) => {
                     if (error) {
                     console.error(error)
                     }
