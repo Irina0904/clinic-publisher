@@ -35,7 +35,7 @@ async function sendCoordinates() {
                     coordinate.properties.description = clinics[i].address;
                     coordinates.push(coordinate);
                 }
-                console.log(coordinates);
+              console.log(coordinates);
                 const message = {
                     type: "FeatureCollection",
                     features: coordinates

@@ -17,15 +17,21 @@ mqttClient.mqttTest();
 
 
 async function main() {
-    // Use connect method to connect to the server
+         // Use connect method to connect to the server
     await client.connect();
     console.log('Connected successfully to server');
     const db = client.db();
     const dentists = db.collection('dentists');
-  
+
+
     // Fetches data from the url every minute
     setInterval(() => fetchData(dentists), 1000 * 60);
-    fetchData(dentists)
+    fetchData(dentists);
+
+const eventName2 = "serverClosed";
+client.on(eventName2, event => {
+  client.close();
+});
 }
 main()
 .catch(console.error)
