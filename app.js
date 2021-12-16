@@ -5,6 +5,7 @@ const mongodb = require("mongodb");
 const mongoClient = mongodb.MongoClient;
 var mqttClient = require('./mqttHandler');
 var coordinateHandler = require('./coordinatesHandler');
+var clinicHandler = require('./clinicHandler');
 //const CircuitBreaker = require("opossum");
 
 const uri = 'mongodb+srv://IriLev0904:Tuborg2002@cluster0.nkjyt.mongodb.net/WebProject?retryWrites=true&w=majority'
@@ -12,6 +13,7 @@ const uri = 'mongodb+srv://IriLev0904:Tuborg2002@cluster0.nkjyt.mongodb.net/WebP
 const client = new mongoClient(uri);
 
 coordinateHandler.sendCoordinates();
+clinicHandler.sendClinicsInfo();
 
 mqttClient.mqttTest();
 
