@@ -1,6 +1,7 @@
 //Type 'node dentistHandler.js' in the console to run this file
 var mqttClient = require('./mqttHandler');
 var mongoUtil = require('./mongoUtil');
+const { ObjectId } = require('bson');
 const client = mqttClient.getMQTTClient();
 
 async function sendClinicsInfo() {
@@ -13,18 +14,19 @@ async function sendClinicsInfo() {
         return new Promise((resolve, reject) => {
         
         let clinics = [];
-        dentists.find({}).toArray().then((result) => {
+            dentists.find({}).toArray().then((result) => {
                 clinics = result;
 
                 let clinicsInfo = [];
                 for (let i = 0; i < clinics.length; i++) {
                     let clinic = {
-                        _id: "",
+                        id: ObjectId,
                         name: "",
                         address: "",
                         city: "",
                     };
-                    clinic._id = clinics[i]._id;
+                    console.log(clinics[i]._id.toString())
+                    clinic.id = clinics[i]._id;
                     clinic.name = clinics[i].name;
                     clinic.address = clinics[i].address;
                     clinic.city = clinics[i].city;
