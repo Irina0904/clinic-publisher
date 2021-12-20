@@ -26,7 +26,7 @@ async function main() {
     const dentists = db.collection('dentists');
   
     // Fetches data from the url every minute
-    setInterval(() => fetchData(dentists), 1000 * 60);
+    setInterval(() => fetchData(dentists), 1000 * 600);
     fetchData(dentists)
 }
 main()
