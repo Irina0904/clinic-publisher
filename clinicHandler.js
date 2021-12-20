@@ -19,12 +19,12 @@ async function sendClinicsInfo() {
                 let clinicsInfo = [];
                 for (let i = 0; i < clinics.length; i++) {
                     let clinic = {
-                        id: "",
+                        _id: "",
                         name: "",
                         address: "",
                         city: "",
                     };
-                    clinic.id = clinics[i].id;
+                    clinic._id = clinics[i]._id;
                     clinic.name = clinics[i].name;
                     clinic.address = clinics[i].address;
                     clinic.city = clinics[i].city;
