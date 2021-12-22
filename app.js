@@ -5,6 +5,7 @@ const mongodb = require("mongodb");
 const mongoClient = mongodb.MongoClient;
 var mqttClient = require('./mqttHandler');
 var coordinateHandler = require('./coordinatesHandler');
+var timeslotHandler = require('./timeslots')
 //const CircuitBreaker = require("opossum");
 
 const uri = 'mongodb+srv://IriLev0904:Tuborg2002@cluster0.nkjyt.mongodb.net/WebProject?retryWrites=true&w=majority'
@@ -12,6 +13,7 @@ const uri = 'mongodb+srv://IriLev0904:Tuborg2002@cluster0.nkjyt.mongodb.net/WebP
 const client = new mongoClient(uri);
 
 coordinateHandler.sendCoordinates();
+timeslotHandler.sendTimeSlots(4);
 
 mqttClient.mqttTest();
 
@@ -49,7 +51,7 @@ function fetchData(dentists) {
 
             }
             for (var i = 0; i < allDentists.length; i++){
-                delete allDentists[i].id;
+                //delete allDentists[i].id;
                 dentists.insertOne(allDentists[i], function(err, res) {
                     if (err) throw err;
                     console.log("1 document inserted");
