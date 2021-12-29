@@ -8,14 +8,24 @@ var coordinateHandler = require('./coordinatesHandler');
 var timeslotHandler = require('./timeslots')
 var clinicHandler = require('./clinicHandler');
 //const CircuitBreaker = require("opossum");
+var clinicID
 
 const uri = 'mongodb+srv://IriLev0904:Tuborg2002@cluster0.nkjyt.mongodb.net/WebProject?retryWrites=true&w=majority'
 
 const client = new mongoClient(uri);
 
+
 clinicHandler.sendClinicsInfo();
 coordinateHandler.sendCoordinates();
-timeslotHandler.sendTimeSlots(4);
+
+
+mqttClient.getMQTTClient().subscribe('dentistimo/clinicID', () => console.log('Subscribed to asdad'))
+mqttClient.getMQTTClient().on('message', (topic, payload) => {
+    console.log(topic)
+    clinicID = (parseInt(payload.toString()))
+    timeslotHandler.sendTimeSlots(clinicID);
+})
+
 
 
 async function main() {

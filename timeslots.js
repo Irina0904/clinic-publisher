@@ -53,9 +53,7 @@ async function sendTimeSlots(id) {
 
                 }
                 var timeslots = generateTimeSlots(clinicTimeslots)
-                console.log(timeslots)
                 client.publish("clinic-publisher/schedule", JSON.stringify(timeslots), { qos: 0, retain: true }, (error) => {
-                    console.log('published')
                     if (error) {
                         console.error(error)
                     }
