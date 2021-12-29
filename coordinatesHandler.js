@@ -40,7 +40,8 @@ async function sendCoordinates() {
                     type: "FeatureCollection",
                     features: coordinates
                 }
-                client.publish('clinic-publisher/coordinates', JSON.stringify(message), { qos: 0, retain: false }, (error) => {
+              client.publish('clinic-publisher/coordinates', JSON.stringify(message), { qos: 0, retain: true }, (error) => {
+                console.log('published');
                     if (error) {
                       console.error(error)
                     }

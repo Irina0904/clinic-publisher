@@ -53,7 +53,7 @@ async function sendTimeSlots(id) {
 
                 }
                 var timeslots = generateTimeSlots(clinicTimeslots)
-
+                console.log(timeslots)
                 client.publish("clinic-publisher/schedule", JSON.stringify(timeslots), { qos: 0, retain: true }, (error) => {
                     console.log('published')
                     if (error) {
@@ -98,14 +98,15 @@ function generateTimeSlots(data) {
 }
 
 function generateTimeSlotsForDay(date, start, end) {
+    
     if (start.length == 4) {
-        var startDate = moment(`${date.getUTCFullYear()}-${date.getMonth() + 1}-${date.getUTCDate()} 0${start}:00`)
+        var startDate = moment(`${date.getUTCFullYear()}-${formatDateNumber(date.getMonth() + 1)}-${formatDateNumber(date.getUTCDate())} 0${start}:00`)
     }
     else {
-        var startDate = moment(`${date.getUTCFullYear()}-${date.getMonth() + 1}-${date.getUTCDate()} ${start}:00`)
+        var startDate = moment(`${date.getUTCFullYear()}-${formatDateNumber(date.getMonth() + 1)}-${formatDateNumber(date.getUTCDate())} ${start}:00`)
     }
 
-    var endDate = moment(`${date.getUTCFullYear()}-${date.getMonth() + 1}-${date.getUTCDate()} ${end}:00`)
+    var endDate = moment(`${date.getUTCFullYear()}-${formatDateNumber(date.getMonth() + 1)}-${formatDateNumber(date.getUTCDate())} ${end}:00`)
     var timeslots = []
     timeslots.push(startDate);
 
@@ -120,7 +121,15 @@ function generateTimeSlotsForDay(date, start, end) {
     })
 }
 
+function formatDateNumber (number) {
+    var valAsString = number.toString();
+    if (valAsString.length === 1) {
+        return '0' + valAsString;
+    }
 
+    return valAsString
+
+}
 
 module.exports = {
     sendTimeSlots
