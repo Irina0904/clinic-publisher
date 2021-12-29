@@ -12,10 +12,8 @@ const uri = 'mongodb+srv://IriLev0904:Tuborg2002@cluster0.nkjyt.mongodb.net/WebP
 
 const client = new mongoClient(uri);
 
-coordinateHandler.sendCoordinates();
 clinicHandler.sendClinicsInfo();
-
-mqttClient.mqttTest();
+coordinateHandler.sendCoordinates();
 
 
 async function main() {
@@ -29,8 +27,7 @@ async function main() {
     setInterval(() => fetchData(dentists), 1000 * 600);
     fetchData(dentists)
 }
-main()
-.catch(console.error)
+main().catch(console.error)
 
 /*This method fetches data from the url and 
 inserts it into the dentists collection.*/
@@ -51,8 +48,27 @@ function fetchData(dentists) {
 
             }
             for (var i = 0; i < allDentists.length; i++){
-                delete allDentists[i].id;
-                dentists.insertOne(allDentists[i], function(err, res) {
+                dentists.updateOne({ id: allDentists.id },{
+                    $set: {
+                      id: allDentists[i].id,
+                      name: allDentists[i].name,
+                      owner: allDentists[i].owner,
+                      dentists: allDentists[i].dentists,
+                      address: allDentists[i].address,
+                      city: allDentists[i].city,
+                      coordinate: {
+                        longitude: allDentists[i].coordinate.longitude,
+                        latitude: allDentists[i].coordinate.latitude,
+                      },
+                      openinghours: {
+                        monday:allDentists[i].openinghours.monday,
+                        tuesday:allDentists[i].openinghours.tuesday,
+                        wednesday: allDentists[i].openinghours.wednesday,
+                        thursday: allDentists[i].openinghours.thursday,
+                        friday: allDentists[i].openinghours.friday,
+                      },
+                    },
+                  }, {upsert: true}, function(err, res) {
                     if (err) throw err;
                     console.log("1 document inserted");
                   });
@@ -65,3 +81,4 @@ function fetchData(dentists) {
 });
     });
 };
+

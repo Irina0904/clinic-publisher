@@ -35,12 +35,13 @@ async function sendCoordinates() {
                     coordinate.properties.description = clinics[i].address;
                     coordinates.push(coordinate);
                 }
-                //console.log(coordinates);
+                console.log(coordinates);
                 const message = {
                     type: "FeatureCollection",
                     features: coordinates
                 }
-                client.publish('clinic-publisher/coordinates', JSON.stringify(message), { qos: 0, retain: false }, (error) => {
+              client.publish('clinic-publisher/coordinates', JSON.stringify(message), { qos: 0, retain: true }, (error) => {
+                console.log('published');
                     if (error) {
                       console.error(error)
                     }
