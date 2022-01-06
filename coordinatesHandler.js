@@ -25,14 +25,16 @@ async function sendCoordinates() {
                               type: "Point",
                               coordinates: [],
                             },
-                            properties: {
+                      properties: {
+                              id: Number,
                               title: "",
                               description: "",
                             },
                     };
                     coordinate.geometry.coordinates = [clinics[i].coordinate.longitude, clinics[i].coordinate.latitude];
                     coordinate.properties.title = clinics[i].name;
-                    coordinate.properties.description = clinics[i].address;
+                  coordinate.properties.description = clinics[i].address;
+                  coordinate.properties.id = clinics[i].id;
                     coordinates.push(coordinate);
                 }
                 console.log(coordinates);
