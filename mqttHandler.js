@@ -16,29 +16,26 @@ const client = mqtt.connect(connectUrl, {
 })
 
 
-function mqttTest() {
-    const topic = 'nodejs/mqtt'
-client.on('connect', () => {
-  console.log('Connected')
-  client.subscribe([topic], () => {
-    console.log(`Subscribe to topic '${topic}'`)
-  })
-  client.publish(topic, 'From Irina: Hello programmer', { qos: 0, retain: true }, (error) => {
-    if (error) {
-      console.error(error)
-    }
-  })
-})
-client.on('message', (topic, payload) => {
-  console.log('Received Message:', topic, payload.toString())
-})
+// function mqttTest() {
+//   const topic = 'dentistimo/clinicID'
+//   client.on('connect', () => {
+//     console.log('Connected')
+//     client.subscribe(topic, () => {
+//       console.log(`Subscribe to topics '${topic}'`)
+//     })
+//     client.on('message', (topic, payload) => {
+//       console.log('Received Message:', topic, payload.toString())
+//     })
+//     client.publish('dentistimo/clinicID', '1')
+//   })
 
-}
+
+// }
 
 module.exports = {
 
   getMQTTClient: function () {
     return client;
-  },
-  mqttTest
+  }
+  // mqttTest
 }
